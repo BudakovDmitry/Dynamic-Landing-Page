@@ -4,6 +4,9 @@ const time = document.getElementById("time"),
   name = document.getElementById("name"),
   focus = document.getElementById("focus");
 
+// Options
+const showAmPm = true;
+
 // Show Time
 
 function showTime() {
@@ -21,7 +24,7 @@ function showTime() {
   // Output Time
   time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(
     sec
-  )}`;
+  )} ${showAmPm ? amPm : ""}`;
 
   setTimeout(showTime, 1000);
 }
@@ -36,18 +39,23 @@ function setBgGreet() {
   let today = new Date(),
     hour = today.getHours();
 
-  if (hour < 12) {
+  if (hour >= 5 && hour < 12) {
     // Morning
     document.body.style.backgroundImage = "url('../img/morning.jpg')";
     greeting.textContent = "Good Morning";
-  } else if (hour < 18) {
+  } else if (hour > 12 && hour < 18) {
     // Afternoon
     document.body.style.backgroundImage = "url('../img/afternoon.jpg')";
     greeting.textContent = "Good Afternoon";
-  } else {
+    document.body.style.color = "white";
+  } else if (hour > 18 && hour < 22) {
     // Evening
-    document.body.style.backgroundImage = "url('../img/night.jpg')";
+    document.body.style.backgroundImage = "url('../img/evening.jpeg')";
     greeting.textContent = "Good Evening";
+  } else {
+    // Night
+    document.body.style.backgroundImage = "url('../img/night.jpg')";
+    greeting.textContent = "Good Night";
     document.body.style.color = "white";
   }
 }
